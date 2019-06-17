@@ -18,23 +18,23 @@
             {{ csrf_field() }}
                 <div class="row">
                     <div class="class="col-sm-4">
-                        <input type="text" name='name' class="form-control" placeholder="Nome">
+                        <input type="text" name='name' class="form-control" placeholder="Nome" @if(isset($usersDataForm['name'])) value='{{$usersDataForm['name']}} @endif '>
                     </div>
                     <div class="class="col-sm-4">
-                        <input type="email" name='email' class="form-control" placeholder="E-mail">
+                    <input type="email" name='email' class="form-control" placeholder="E-mail" @if(isset($usersDataForm['email'])) value='{{$usersDataForm['email']}} @endif '>
                     </div>
                     <div class="class="col-sm-4">
                         <select name='active' class="custom-select">
-                            <option value="" selected>Selecione um Status</option>
-                            <option value="1">Ativo</option>
-                            <option value="0">Inativo</option>
+                            <option value="" @if(!isset($usersDataForm['active'])) {{'selected'}} @endif >Selecione um Status</option>
+                            <option value="1" @if(isset($usersDataForm['active']) && $usersDataForm['active'] == '1') {{'selected'}} @endif>Ativo</option>
+                            <option value="0" @if(isset($usersDataForm['active']) && $usersDataForm['active'] == '0') {{'selected'}} @endif>Inativo</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">
                         Data Inicial:
-                        <input type="Datetime" class="datepicker" name="dateFirst" value="12-05-2015 21:05" id="dateFirst">
+                        <input type="Datetime" class="datepicker" name="dateFirst" value='@if(isset($usersDataForm['dateFirst'])) {{$usersDataForm['dateFirst']}} @endif ' id="dateFirst">
                     </div>
                     <div class="col-sm-4">
                         Data Final:
@@ -48,7 +48,9 @@
                         <select name='totalPages' class="custom-select">
                             @for ($i = 10; $i <= 100; $i+=10)
                                 <option
-                                    @if ($i == 10) {{ 'selected' }}  {{ '' }} @endif
+                                @if (isset($usersDataForm['totalPages']))
+                                    @if($usersDataForm['totalPages'] == $i) {{'selected'}} {{''}} @endif
+                                @elseif ($i == 10) {{ 'selected' }}  {{ '' }} @endif
                                  value="{{$i}}" >{{$i}}</option>
                             @endfor
                         </select>
