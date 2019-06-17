@@ -10,6 +10,7 @@ class User_Acess extends Model
 
     protected $fillable = ['last_login'];
     protected $table = "users_acess";
+    public $timestamps = false;
 
     public function User()
     {

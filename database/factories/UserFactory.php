@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\User;
+use App\User_Acess;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -20,8 +21,12 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'active' => $faker->boolean(80)
+    ];
+});
+
+$factory->define(App\User_Acess::class, function (Faker $faker) {
+    return [
+        'last_login' => $faker->dateTime($max = 'now', $timezone = null)
     ];
 });

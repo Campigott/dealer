@@ -10,6 +10,7 @@ class User extends Model
     protected $fillable = ['name','email','active'];
 
     protected $table = "users";
+    public $timestamps = false;
 
     /**
      * Relacionamento com a tabela de acessos dos usuarios.
@@ -30,7 +31,7 @@ class User extends Model
      * Realiza consulta com os filtros em tela.
      */
     public function getUserFilter(array $data, $totalPage,$orderBy = 'asc'){
-        return   $this->where(function ($query) use ($data){
+        return  $this->where(function ($query) use ($data){
                 //Filtro de nome
                 if(isset($data['name']))
                     $query->where('name','like',$data['name'].'%');
@@ -41,7 +42,7 @@ class User extends Model
                 if(isset($data['active']))
                     $query->where('active',$data['active']);
 
-                })/*->whereHas('UserAcess',function($query) use ($data){
+                })->whereHas('UserAcess',function($query) use ($data){
                     //Filtro relacionado a tabela de acesso dos usuarios.
 
                     //Data Inicial - Igual ou Acima de...
@@ -51,26 +52,12 @@ class User extends Model
                     //Data Final - Menor ou igual de...
                     if(isset($data['dateEnd']))
                         $query->where('last_login' , '<=' ,$data['dateEnd']);
-            })*/->leftJoin('users_acess as ua',function($query) use($data){
-                    $query->on('ua.user_id','id');
+            })->withCount('UserAcess')->orderBy('name',$orderBy)->paginate($totalPage);
 
-                     //Data Inicial - Igual ou Acima de...
-                     if(isset($data['dateFirst']))
-                     $query->where('ua.last_login' , '>=' ,$data['dateFirst']);
-
-                 //Data Final - Menor ou igual de...
-                 if(isset($data['dateEnd']))
-                     $query->where('ua.last_login' , '<=' ,$data['dateEnd']);
-
-
-            } )->select('user.*','ua.last_login')->orderBy('name',$orderBy)//->toSql();
-            //dd($return);
-            ->paginate($totalPage);
     }
 
-    public function getTopsUserAcess(array $data, $totalPage){
-        $return =  $this->where(function ($query) use ($data){
-
-        })->orderBy()->paginate($totalPage);
+    public function getTopUserAcess( $totalPage,$orderBy = 'desc'){
+        return   $this->withCount('UserAcess')->orderBy('user_acess_count' , $orderBy)->orderBy('name','asc')->paginate(10);
+        //dd($return);
     }
 }

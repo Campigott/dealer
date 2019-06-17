@@ -22,10 +22,16 @@ class UsersController extends Controller
 
        $UserDataFilter = $request->except('_token');
 
+       if(isset($UserDataFilter['topAcess'])){
+           $usersData = $user->getTopUserAcess(10,$UserDataFilter['topAcess']);
 
+       }elseif(isset($UserDataFilter['lessAcess'])){
+        $usersData = $user->getTopUserAcess(10,$UserDataFilter['lessAcess']);
+       }else{
+       //dd($usersData);
 
        $usersData = $user->getUserFilter($UserDataFilter,$UserDataFilter['totalPages'],$UserDataFilter['orderBy']);
-
+       }
        return view('users.index',['users' => $usersData , 'usersDataForm' => $UserDataFilter]);
 
 

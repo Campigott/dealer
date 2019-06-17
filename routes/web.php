@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'users'], function () {
     Route::any('/pesquisa', 'UsersController@pesquisa');
+    Route::any('/pesquisa-topacess', 'UsersController@pesquisa');
+    Route::any('/pesquisa-lessacess', 'UsersController@pesquisa');
     Route::get('/', 'UsersController@index');
 });
 

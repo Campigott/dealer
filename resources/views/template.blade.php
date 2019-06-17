@@ -12,5 +12,8 @@
         @yield('container')
     </body>
 
+<script type="text/JavaScript" src="{{ asset("jqueryDatePicker/external/jquery/jquery.js")}}"></script>
+<script type="text/JavaScript" src="{{ asset("jqueryDatePicker/jquery-ui.min.js")}}"></script>
+
     @yield('script')
 </html>

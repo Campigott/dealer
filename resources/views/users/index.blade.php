@@ -34,11 +34,11 @@
                 <div class="row">
                     <div class="col-sm-4">
                         Data Inicial:
-                        <input type="Datetime" name="dateFirst" value="12-05-2015 21:05" id="dateFirst">
+                        <input type="Datetime" class="datepicker" name="dateFirst" value="12-05-2015 21:05" id="dateFirst">
                     </div>
                     <div class="col-sm-4">
                         Data Final:
-                        <input type="Datetime" name="dateEnd" value="10-05-2019 21:05" id="dateEnd">
+                        <input type="Datetime" name="dateEnd" value="" id="dateEnd">
                     </div>
                 </div>
 
@@ -76,8 +76,24 @@
                     <div class="col">
                         <button type="submit" class="btn btn-primary">pesquisar</button>
                     </div>
-
                 </div>
+            </form>
+            <form action="{{url('/users/pesquisa-topacess')}}" method="post">
+                {{ csrf_field() }}
+                <input hidden name="topAcess" value='Desc'>
+                <div class="col">
+                        <button type="submit" class="btn btn-primary">Mais Acessos</button>
+                    </div>
+
+            </form>
+
+            <form action="{{url('/users/pesquisa-lessacess')}}" method="post">
+                {{ csrf_field() }}
+                <input hidden name="lessAcess" value='Asc'>
+                <div class="col">
+                        <button type="submit" class="btn btn-primary">Menos Acessos</button>
+                    </div>
+
             </form>
         </div>
         <div class="col-sm-8">
@@ -125,8 +141,6 @@
 
 @section('script')
 <script>
-    $('#datetimepicker').datetimepicker({
-    format: 'yyyy-mm-dd hh:ii'
-    });
+
 </script>
 @endsection
