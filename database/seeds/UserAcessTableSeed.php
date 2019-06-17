@@ -13,7 +13,7 @@ class UserAcessTableSeed extends Seeder
     public function run()
     {
         for ($i=0; $i < 2000 ; $i++) {
-            $UserAcess = factory(\App\User_Acess::class, rand(5,100))->create([
+            $UserAcess = factory(\App\User_Acess::class, rand(5,30))->create([
                 'user_id' => array_rand($this->getRandomUserId())
             ]);
         }
