@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+      return redirect()->action(
+        'UsersController@index'
+    );
 });
 
 Route::group(['prefix' => 'users'], function () {

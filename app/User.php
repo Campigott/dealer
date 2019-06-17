@@ -30,7 +30,7 @@ class User extends Model
     /**
      * Realiza consulta com os filtros em tela.
      */
-    public function getUserFilter(array $data, $totalPage,$orderBy = 'asc'){
+    public function getUserFilter(array $data, $totalPage = 10,$orderBy = 'asc'){
         return  $this->where(function ($query) use ($data){
                 //Filtro de nome
                 if(isset($data['name']))
